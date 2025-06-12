@@ -4,11 +4,11 @@ from fastapi.templating import Jinja2Templates
 import pandas as pd
 import pandas.errors
 import numpy as np
-from models import Componente, ComponenteActualizado, ComponenteConId, Orden
+from models import usuario, UsuarioConId, mascota, MascotaConId, boleto
 from typing import Optional
 templates = Jinja2Templates(directory="templates")
 router = APIRouter()
-csv_file = "componentes.csv"
+csv_file = "vuelos.csv"
 prueba_file = "pruebas.csv"
 csv_eliminados = "eliminados.csv"
 
@@ -23,7 +23,7 @@ async def ver_home(request: Request):
 
 @router.get("/info", response_class=HTMLResponse)
 async def leer_info(request:Request):
-    csv_file = "componentes.csv"
+    csv_file = "vuelos.csv"
     sesiones = pd.read_csv(csv_file)
     sesiones["id"] = sesiones.index
     lista = sesiones.to_dict(orient="records")
@@ -112,7 +112,7 @@ async def ver_orden(request: Request):
 #-----------------------------------------------------------------------------------------------------
 @router.get("/add", response_class=HTMLResponse)
 async def ver_add(request: Request):
-    df = pd.read_csv("componentes.csv")
+    df = pd.read_csv("usuarios.csv")
 
     motherboards = df[df["tipo"] == "Motherboard"].to_dict(orient="records")
     cpus = df[df["tipo"] == "CPU"].to_dict(orient="records")
