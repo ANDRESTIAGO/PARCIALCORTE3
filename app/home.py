@@ -155,6 +155,50 @@ async def listar_usuarios(request: Request):
         "usuarios": usuarios
     })
 
+@router.get("/mascotas-add", response_class=HTMLResponse)
+async def mostrar_formulario_mascota(request: Request):
+    return templates.TemplateResponse("mascotas_add.html", {"request": request})
+
+@router.post("/mascotas-add")
+async def crear_mascota(
+    cedula: str = Form(...),
+    nombre: str = Form(...),
+    id_compra: str = Form(...),
+    raza: str = Form(...), 
+    edad: str = Form(...)
+):
+    usuario_file = "mascotas.csv"
+
+    try:
+        df = pd.read_csv(usuario_file)
+    except FileNotFoundError:
+        df = pd.DataFrame(columns=["cedula","nombre", "id_compra", "raza", "edad"])
+
+    nuevo_mascota = {
+        "cedula": cedula,
+        "nombre": nombre,
+        "id_compra": id_compra,
+        "raza": raza,
+        "edad": edad
+    }
+
+    df = pd.concat([df, pd.DataFrame([nuevo_mascota])], ignore_index=True)
+    df.to_csv(usuario_file, index=False)
+
+    return RedirectResponse(url="/mascotas", status_code=303)
+
+@router.get("/mascotas", response_class=HTMLResponse)
+async def listar_mascotas(request: Request):
+    try:
+        df = pd.read_csv("mascotas.csv")
+        mascota = df.to_dict(orient="records")
+    except FileNotFoundError:
+        mascota = []
+
+    return templates.TemplateResponse("mascotas.html", {
+        "request": request,
+        "mascota": mascota
+    })
 
 @router.get("/add", response_class=HTMLResponse)
 async def ver_add(request: Request):

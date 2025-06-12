@@ -1,0 +1,20 @@
+<h2>Lista de Mascotas</h2>
+
+<table border="1">
+  <tr>
+    <th>Cedula</th>
+    <th>Nombre</th>
+    <th>ID Compra</th>
+    <th>raza</th>
+    <th>edad</th>
+  </tr>
+  {% for mascota in mascota %}
+  <tr>
+    <td>{{ mascota.cedula }}</td>
+    <td>{{ mascota.nombre }}</td>
+    <td>{{ mascota.id_compra }}</td>
+    <td>{{ mascota.raza }}</td>
+    <td>{{ mascota.edad }}</td>
+  </tr>
+  {% endfor %}
+</table>

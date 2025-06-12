@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ titulo }} - Comparación{% endblock %}
+
+{% block content %}
+
+<section id="hero">
+    <div class="hero">
+        <h1 class="hero-title">Creación de orden</h1>
+        <h3 class="hero-subtitle">En este espacio crearás tu orden con los componentes que elijas</h3>
+    </div>
+</section>
+
+<section id="lo-que-ofrecemos">
+    <div class="cards-container">
+        <div class="form_forma">
+            <form action="/mascotas-add" method="post">
+                <label for="cedula">Cédula:</label>
+                <input type="text" id="cedula" name="cedula" required><br>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br>
+
+                <label for="id_compra">ID de compra:</label>
+                <input type="text" id="id_compra" name="id_compra" required><br>
+
+                <label for="raza">Raza:</label>
+                <input type="text" id="raza" name="raza" required><br>
+
+                <label for="edad">Edad:</label>
+                <input type="text" id="edad" name="edad" required><br>
+
+                <button type="submit">Crear Mascota</button>
+            </form>
+
+            <form action="/menu#Como-ayudar">
+                <button type="submit">Regresar</button>
+            </form>
+        </div>
+    </div>
+    
+</section>
+
+{% endblock %}

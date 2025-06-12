@@ -5,6 +5,7 @@ from datetime import datetime
 from Enum import snack, paises
 
 class usuarios(SQLModel):
+    cedula:str
     nombre: str
     id_compra: int
     edad: str
@@ -13,10 +14,11 @@ class UsuarioConId(usuarios):
     id: int
 
 class mascota(SQLModel):
+    cedula: str
     nombre: Optional[str] = Field(None, min_length=2, max_length=50)
-    tipo: Optional[str] = Field(None, min_length=2, max_length=30)
-    marca: Optional[str] = Field(None, min_length=2, max_length=30)
-    modelo: Optional[str] = Field(None, min_length=2, max_length=30)
+    id_compra: Optional[str] = Field(None, min_length=2, max_length=30)
+    raza: Optional[str] = Field(None, min_length=2, max_length=30)
+    edad: Optional[str] = Field(None, min_length=2, max_length=30)
     
 class MascotaConId(mascota):
     id: int
