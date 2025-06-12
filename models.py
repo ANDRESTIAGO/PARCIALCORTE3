@@ -23,14 +23,13 @@ class mascota(SQLModel):
 class MascotaConId(mascota):
     id: int
 
-class boleto(SQLModel, table=True):
-    
+class boleto(SQLModel):
     Ciudad_origen: str
     Ciudad_destino: str
     fecha: datetime
     disponibilidad: bool
-    snack: Optional[snack] = Field(default=None)
-    paises: Optional[paises] = Field(default=None)
+    snack: Optional[str] = Field(default=None)
+    paises: Optional[str] = Field(default=None)
 
 class boleto_id(boleto):
     id_boleto:int
