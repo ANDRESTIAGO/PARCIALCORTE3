@@ -226,6 +226,27 @@ async def listar_mascotas(request: Request):
         "mascota": mascota
     })
 
+@router.get("/mascota-eliminar", response_class=HTMLResponse)
+async def mostrar_formulario_eliminar_mascota(request: Request):
+    return templates.TemplateResponse("mascota_eliminar.html", {"request": request})
+
+@router.post("/mascota-eliminar", response_class=RedirectResponse)
+async def eliminar_mascota(request: Request, cedula: str = Form(...)):
+    archivo_mascota = "mascotas.csv"
+
+    try:
+        df = pd.read_csv(archivo_mascota)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="No hay mascotas registrados")
+
+    if cedula not in df["cedula"].astype(str).values:
+        raise HTTPException(status_code=404, detail="Mascota no encontrado")
+    
+    df = df[df["cedula"].astype(str) != cedula]
+    df.to_csv(archivo_mascota, index=False)
+
+    return RedirectResponse(url="/mascotas", status_code=303)
+
 @router.get("/add", response_class=HTMLResponse)
 async def ver_add(request: Request):
     df = pd.read_csv("usuarios.csv")
