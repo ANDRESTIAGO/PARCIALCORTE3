@@ -1,0 +1,24 @@
+<h2>Lista de Boletos</h2>
+
+<table border="1">
+  <tr>
+    <th>id_boleto</th>
+    <th>Ciudad_origen</th>
+    <th>Ciudad_destino</th>
+    <th>fecha</th>
+    <th>disponibilidad</th>
+    <th>snack</th>
+    <th>paises</th>
+  </tr>
+  {% for boletos in boleto %}
+  <tr>
+    <td>{{ <boletos class="id"></boletos> }}</td>
+    <td>{{ boletos.Ciudad_origen }}</td>
+    <td>{{ boletos.CIudad_destino }}</td>
+    <td>{{ boletos.fecha }}</td>
+    <td>{{ boletos.disponibilidad }}</td>
+    <td>{{ boletos.snack }}</td>
+    <td>{{ boletos.paises }}</td>
+</tr>
+  {% endfor %}
+</table>

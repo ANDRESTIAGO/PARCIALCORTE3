@@ -7,7 +7,7 @@ class snack(str, Enum):
     chocolatina = "chocolatina"
 
 class paises(str, Enum):
-    colombian = "colombia"
+    colombia = "colombia"
     españa = "españa"
     francia = "francia"
     eeuu = "estados unidos"

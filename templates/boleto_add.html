@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ titulo }} - Comparación {% endblock %}
+
+{% block content %}
+
+<section id="hero">
+    <div class="hero">
+        <h1 class="hero-title">Boleto</h1>
+        <h3 class="hero-subtitle">Ingresa los datos para tu vuelo</h3>
+    </div>
+</section>
+
+<section id="Vuelos ">
+    <div class="cards-container">
+        <div class="form_forma">
+            <form action="/boleto_add" method="post">
+                <label for="id_usuario">id_usuario:</label>
+                <input type="text" id="id_usuario" name="id_usuario" required><br>
+
+                <label for="id_compra">ID de compra:</label>
+                <input type="number" id="id_compra" name="id_compra" required><br>
+              
+                <select name="Ciudad_origen" required>
+                    <option value="">Seleccione su lugar de Origen</option>
+                    <option value="colombia">colombia</option>
+                    <option value="españa">españa</option>                    <option value="colombia">colombia</option>
+                    <option value="francia">francia</option>                    <option value="colombia">colombia</option>
+                    <option value="eeuu">estados unidos</option>                    <option value="colombia">colombia</option>
+                    <option value="argentina">argentina</option>                    <option value="colombia">colombia</option>
+                    <option value="brasil">brasil</option>
+                    <option value="alemania">alemania</option>
+                    <option value="italia">italia</option>                    <option value="colombia">colombia</option>
+                    <option value="china">china</option>
+                    <option value="japon">japon</option>
+                </select>
+
+                <select name="Ciudad_destino" required>
+                    <option value="">Seleccione su lugar de Origen</option>
+                    <option value="colombia">colombia</option>
+                    <option value="españa">españa</option>                    
+                    <option value="francia">francia</option>                  
+                    <option value="eeuu">estados unidos</option>                  
+                    <option value="argentina">argentina</option>                   
+                    <option value="brasil">brasil</option>
+                    <option value="alemania">alemania</option>
+                    <option value="italia">italia</option>                   
+                    <option value="china">china</option>
+                    <option value="japon">japon</option>
+                </select>
+
+
+                <label for="fecha">Fecha:</label>
+                <input type="datetime" id="datetime" name="datetime" required><br>
+              
+                <select name="disponibilidad" required>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+
+                <select name="snack" required>
+                    <option value="">Seleccione tu snack</option>
+                    <option value="papas">papas</option>
+                    <option value="jugo">jugo</option>                   
+                    <option value="mani">mani</option>                    
+                    <option value="chocolatina">chocolatina</option>                   
+
+                </select>
+
+              
+                <button type="submit">Crear Usuario</button>
+              </form>
+              
+            <form action="/menu#Como-ayudar">
+                <button>Regresar</button>
+            </form>
+            <form action="/boletos">
+                <button type="submit">Mostrar boletos</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

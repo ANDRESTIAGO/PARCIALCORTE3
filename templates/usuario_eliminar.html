@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="hero">
+    <div class="hero">
+        <h1 class="hero-title">Eliminar Usuario</h1>
+        <h3 class="hero-subtitle">Aquí eliminarás usuarios por su cédula</h3>
+    </div>
+</section>
+
+<div class="cards-container">
+    <div class="form_forma">
+        <h2>Ingrese la cédula del usuario que desea eliminar</h2>
+
+        <form action="/usuario-eliminar" method="post">
+            <input type="text" name="cedula" placeholder="Cédula del usuario" required>
+            <button type="submit">Eliminar Usuario</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

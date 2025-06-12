@@ -143,6 +143,57 @@ async def crear_usuario(
 
     return RedirectResponse(url="/usuarios", status_code=303)
 
+
+from Enum import *
+
+@router.post("/boleto_add")
+async def crear_boleto(
+    id_usuario: int = Form(...),
+    id_compra: int = Form(...),
+    Ciudad_origen: paises = Form(...),
+    Ciudad_destino: paises = Form(...),
+    fecha: str = Form(...),
+    disponibilidad: bool = Form(True),
+    snack : snack = Form(...)
+    ):
+    
+    boleto_file = "vuelos.csv"
+
+    try: 
+        df = pd.read_csv(boleto_file)
+    except FileNotFoundError:
+        df = pd.DataFrame(columns=["id_usuario", "id_compra", "Ciudad_origen", "Ciudad_destino", "fecha", "disponibilidad", "snack"])
+
+    nuevo_boleto = {
+        "id_usuario": id_usuario,
+        "id_compra": id_compra,
+        "Ciudad_origen": Ciudad_origen,
+        "Ciudad_destino": Ciudad_destino,
+        "fecha": fecha,
+        "disponibilidad": disponibilidad,
+        "snack": snack
+    }
+
+    df = pd.concat([df,pd.DataFrame([nuevo_boleto])], ignore_index=True)
+    df. to_csv(boleto_file, index=False)
+
+    return RedirectResponse(url="boletos", status_code=303)
+ 
+
+@router.get("/boletos", response_class=HTMLResponse)
+async def listar_boletos(request:Request):
+    try:
+        df = pd.read_csv("vuelos.csv")
+        boleto = df.to_dict(orient="records")
+    except FileExistsError:
+        boleto = []
+
+    return templates.TemplateResponse("boletos.html",{
+    "request": Request,
+    "boleto": boleto
+    })
+
+
 @router.get("/usuarios", response_class=HTMLResponse)
 async def listar_usuarios(request: Request):
     try:
