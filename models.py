@@ -2,12 +2,12 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlmodel import SQLModel, Field
 
-class usuario(SQLModel):
+class usuarios(SQLModel):
     nombre: str
     id_compra: int
     edad: str
     sexo: str
-class UsuarioConId(usuario):
+class UsuarioConId(usuarios):
     id: int
 
 class mascota(SQLModel):

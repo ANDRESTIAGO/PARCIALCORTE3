@@ -1,0 +1,20 @@
+<h2>Lista de Usuarios</h2>
+
+<table border="1">
+  <tr>
+    <th>Cedula</th>
+    <th>Nombre</th>
+    <th>ID Compra</th>
+    <th>Edad</th>
+    <th>Sexo</th>
+  </tr>
+  {% for usuario in usuarios %}
+  <tr>
+    <td>{{ usuario.cedula }}</td>
+    <td>{{ usuario.nombre }}</td>
+    <td>{{ usuario.id_compra }}</td>
+    <td>{{ usuario.edad }}</td>
+    <td>{{ usuario.sexo }}</td>
+  </tr>
+  {% endfor %}
+</table>

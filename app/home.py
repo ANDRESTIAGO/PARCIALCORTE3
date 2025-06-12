@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 import pandas as pd
 import pandas.errors
 import numpy as np
-from models import usuario, UsuarioConId, mascota, MascotaConId, boleto
+from models import usuarios, UsuarioConId, mascota, MascotaConId, boleto
 from typing import Optional
 templates = Jinja2Templates(directory="templates")
 router = APIRouter()
@@ -110,6 +110,52 @@ async def ver_orden(request: Request):
         "orden.html", {"request": request, "componentes": componentes}
     )
 #-----------------------------------------------------------------------------------------------------
+@router.get("/usuario-add", response_class=HTMLResponse)
+async def mostrar_formulario_usuario(request: Request):
+    return templates.TemplateResponse("usuario_add.html", {"request": request})
+
+@router.post("/usuario-add")
+async def crear_usuario(
+    cedula: str = Form(...),
+    nombre: str = Form(...),
+    id_compra: int = Form(...), 
+    edad: int = Form(...),
+    sexo: str = Form(...)
+):
+    usuario_file = "usuarios.csv"
+
+    try:
+        df = pd.read_csv(usuario_file)
+    except FileNotFoundError:
+        df = pd.DataFrame(columns=["cedula", "nombre", "id_compra", "edad", "sexo"])
+
+    nuevo_usuario = {
+        "cedula": cedula,
+        "nombre": nombre,
+        "id_compra": id_compra,
+        "edad": edad,
+        "sexo": sexo
+    }
+
+    df = pd.concat([df, pd.DataFrame([nuevo_usuario])], ignore_index=True)
+    df.to_csv(usuario_file, index=False)
+
+    return RedirectResponse(url="/usuarios", status_code=303)
+
+@router.get("/usuarios", response_class=HTMLResponse)
+async def listar_usuarios(request: Request):
+    try:
+        df = pd.read_csv("usuarios.csv")
+        usuarios = df.to_dict(orient="records")
+    except FileNotFoundError:
+        usuarios = []
+
+    return templates.TemplateResponse("usuarios.html", {
+        "request": request,
+        "usuarios": usuarios
+    })
+
+
 @router.get("/add", response_class=HTMLResponse)
 async def ver_add(request: Request):
     df = pd.read_csv("usuarios.csv")
