@@ -110,10 +110,11 @@ async def ver_orden(request: Request):
         "orden.html", {"request": request, "componentes": componentes}
     )
 #-----------------------------------------------------------------------------------------------------
+#muestra formuladio crear usuario
 @router.get("/usuario-add", response_class=HTMLResponse)
 async def mostrar_formulario_usuario(request: Request):
     return templates.TemplateResponse("usuario_add.html", {"request": request})
-
+#crea el usuario con base a el formlario
 @router.post("/usuario-add")
 async def crear_usuario(
     cedula: str = Form(...),

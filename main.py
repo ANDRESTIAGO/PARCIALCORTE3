@@ -16,6 +16,3 @@ app.include_router(home.router)
 
 templates = Jinja2Templates(directory="templates")
 
-@app.get("allflyes", response_model=list[boleto_id])
-async def get_all_fly():
-    
