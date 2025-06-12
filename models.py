@@ -21,7 +21,7 @@ class MascotaConId(mascota):
 
 class boleto(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    Ciudad_origen: int
+    Ciudad_origen: str
     Ciudad_destino: str
     fecha:  str
     disponibilidad: str
