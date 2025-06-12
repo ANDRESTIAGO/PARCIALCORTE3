@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ titulo }} - Comparación {% endblock %}
+
+{% block content %}
+
+<section id="hero">
+    <div class="hero">
+        <h1 class="hero-title">Creacion de orden</h1>
+        <h3 class="hero-subtitle">En este espacio crearas tu orden con los compnentes que elijas</h3>
+    </div>
+</section>
+
+<section id="Lo-que-ofresemos ">
+    <div class="cards-container">
+        <div class="form_forma">
+            <form action="/usuario-add" method="post">
+                <label for="cedula">Cedula:</label>
+                <input type="text" id="cedula" name="cedula" required><br>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required><br>
+              
+                <label for="id_compra">ID de compra:</label>
+                <input type="number" id="id_compra" name="id_compra" required><br>
+              
+                <label for="edad">Edad:</label>
+                <input type="number" id="edad" name="edad" required><br>
+              
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Otro">Otro</option>
+                </select><br>
+              
+                <button type="submit">Crear Usuario</button>
+              </form>
+              
+            <form action="/menu#Como-ayudar">
+                <button>Regresar</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
