@@ -6,6 +6,7 @@ import pandas.errors
 import numpy as np
 from models import usuarios, UsuarioConId, mascota, MascotaConId, boleto
 from typing import Optional
+from sqlmodel import Session, select
 templates = Jinja2Templates(directory="templates")
 router = APIRouter()
 csv_file = "vuelos.csv"
@@ -207,6 +208,31 @@ async def listar_usuarios(request: Request):
         "usuarios": usuarios
     })
 
+@router.get("/usuario-eliminar", response_class=HTMLResponse)
+async def mostrar_formulario_eliminar_usuario(request: Request):
+    return templates.TemplateResponse("usuario_eliminar.html", {"request": request})
+
+@router.post("/usuario-eliminar", response_class=RedirectResponse)
+async def eliminar_usuario(request: Request, cedula: str = Form(...)):
+    archivo_usuarios = "usuarios.csv"
+
+    try:
+        df = pd.read_csv(archivo_usuarios)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="No hay usuarios registrados")
+
+    if cedula not in df["cedula"].astype(str).values:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
+    
+    df = df[df["cedula"].astype(str) != cedula]
+    df.to_csv(archivo_usuarios, index=False)
+
+    return RedirectResponse(url="/usuarios", status_code=303)
+
+
+
+
+
 @router.get("/mascotas-add", response_class=HTMLResponse)
 async def mostrar_formulario_mascota(request: Request):
     return templates.TemplateResponse("mascotas_add.html", {"request": request})
@@ -251,6 +277,27 @@ async def listar_mascotas(request: Request):
         "request": request,
         "mascota": mascota
     })
+
+@router.get("/mascota-eliminar", response_class=HTMLResponse)
+async def mostrar_formulario_eliminar_mascota(request: Request):
+    return templates.TemplateResponse("mascota_eliminar.html", {"request": request})
+
+@router.post("/mascota-eliminar", response_class=RedirectResponse)
+async def eliminar_mascota(request: Request, cedula: str = Form(...)):
+    archivo_mascota = "mascotas.csv"
+
+    try:
+        df = pd.read_csv(archivo_mascota)
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="No hay mascotas registrados")
+
+    if cedula not in df["cedula"].astype(str).values:
+        raise HTTPException(status_code=404, detail="Mascota no encontrado")
+    
+    df = df[df["cedula"].astype(str) != cedula]
+    df.to_csv(archivo_mascota, index=False)
+
+    return RedirectResponse(url="/mascotas", status_code=303)
 
 @router.get("/add", response_class=HTMLResponse)
 async def ver_add(request: Request):

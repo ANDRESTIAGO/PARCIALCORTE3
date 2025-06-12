@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="hero">
+    <div class="hero">
+        <h1 class="hero-title">Eliminar Mascota</h1>
+        <h3 class="hero-subtitle">Aquí eliminarás mascotas por su cédula</h3>
+    </div>
+</section>
+
+<div class="cards-container">
+    <div class="form_forma">
+        <h2>Ingrese la cédula a la que esta registrada la mascota que desea eliminar</h2>
+
+        <form action="/mascota-eliminar" method="post">
+            <input type="text" name="cedula" placeholder="Cédula del usuario" required>
+            <button type="submit">Eliminar Mascota</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
