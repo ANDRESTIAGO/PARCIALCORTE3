@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlmodel import SQLModel, Field
 from datetime import datetime
-from enum import snack, paises
+from Enum import snack, paises
 
 class usuarios(SQLModel):
     nombre: str
